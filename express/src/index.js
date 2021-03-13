@@ -9,6 +9,7 @@ const comentarioRoutes = require('./routes/comentario');
 const galeriaRoutes = require('./routes/galeria');
 const contactarnosRoutes = require('./routes/contactarnos');
 const terminos_condicionesRoutes = require('./routes/terminos_condiciones');
+const quiz = require('./routes/quiz');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/comentarios",comentarioRoutes);
 app.use("/galerias",galeriaRoutes);
 app.use("/contactarnos",contactarnosRoutes);
 app.use("/terminos_condiciones",terminos_condicionesRoutes);
+app.use("/quiz",quiz);
 
 app.listen(PORT, () => {
     console.log("localhost:" + PORT);

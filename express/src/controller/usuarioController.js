@@ -42,9 +42,20 @@ exports.ModificarUsuario = async (req,res) => {
 
 exports.AgregarUsuario = async (req,res) => {
     try {
-        const { nombre, cell, direccion, email, password } = req.body;
-        await database.query("INSERT INTO usuario(nombre, cell, direccion, email, password) VALUES (?,?,?,?,?)", [nombre, cell, direccion, email, password]);
+        const { nombre, cell, direccion, email, password, idroles } = req.body;
+        await database.query("INSERT INTO usuario(nombre, cell, direccion, email, password, idroles) VALUES (?,?,?,?,?,?)", [nombre, cell, direccion, email, password, idroles]);
         res.status(200).json({ msg: "Usuario agregado" });
+    } catch (err) {
+        res.status(401).json({ err: err });
+    }
+}
+
+exports.LoginUsuario = async (req,res) => {
+    try {
+        const { email, password } = req.body;
+        const datos = [ email, password ];
+        const LoginUsuario = await database.query("SELECT * FROM usuario where email = ? AND password = ?", datos);
+        res.status(200).json({ LoginUsuario });
     } catch (err) {
         res.status(401).json({ err: err });
     }

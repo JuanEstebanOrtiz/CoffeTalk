@@ -2,8 +2,8 @@ const database = require('../database');
 
 exports.ListarProductos = async (req,res) => {
     try {
-        const produc = await database.query("SELECT * FROM productos");
-        res.status(200).json({ produc });
+        const productos = await database.query("SELECT * FROM productos");
+        res.status(200).json({ productos });
     } catch (err) {
         res.status(401).json({ err: err });
     }
@@ -12,8 +12,8 @@ exports.ListarProductos = async (req,res) => {
 exports.ListarProducto = async (req,res) => {
     try {
         const { id } = req.params;
-        const productos = await database.query("SELECT * FROM productos WHERE idproductos = ?", [id]);
-        res.status(200).json({ productos });
+        const produc = await database.query("SELECT * FROM productos WHERE idproductos = ?", [id]);
+        res.status(200).json({ produc });
     } catch (err) {
         res.status(401).json({ err: err });
     }
