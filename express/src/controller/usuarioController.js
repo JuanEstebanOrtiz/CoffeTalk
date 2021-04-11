@@ -2,7 +2,7 @@ const database = require('../database');
 
 exports.ListarUsuarios = async (req,res) => {
     try {
-        const user = await database.query("SELECT * FROM usuario");
+        const user = await database.query("select u.id, u.nombre, u.cell, u.direccion, u.email, u.password, r.rol, r.idroles from usuario u, roles r where r.idroles = u.idroles");
         res.status(200).json({ user });
     } catch (err) {
         res.status(401).json({ err: err });
@@ -32,8 +32,8 @@ exports.EliminarUsuario = async (req,res) => {
 exports.ModificarUsuario = async (req,res) => {
     try {
         const { id } = req.params;
-        const { nombre, cell, direccion, email, password } = req.body;
-        await database.query("UPDATE usuario SET nombre = ?, cell = ?, direccion = ?, email = ?, password = ? WHERE id = ?", [nombre, cell, direccion, email, password, id]);
+        const { nombre, cell, direccion, email, password, idroles } = req.body;
+        await database.query("UPDATE usuario SET nombre = ?, cell = ?, direccion = ?, email = ?, password = ?, idroles = ? WHERE id = ?", [nombre, cell, direccion, email, password, idroles, id]);
         res.status(200).json({ msg: "Usuario modificado" });
     } catch (err) {
         res.status(401).json({ err: err });

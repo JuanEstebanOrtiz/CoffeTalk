@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "material-table": "^1.69.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1"
   },

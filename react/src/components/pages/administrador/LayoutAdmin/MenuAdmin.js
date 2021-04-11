@@ -1,18 +1,18 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 
-const NavbarMenu = () => {
+const MenuAdmin = () => {
     return (
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/login">Navbar</Navbar.Brand>
+                <Navbar.Brand href="/admin">Navbar</Navbar.Brand>
                 <Nav className="mr-sm-2">
-                    <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
-                    <Nav.Link href="/Registro">Registro</Nav.Link>
+                    <Nav.Link href="/usuariosAdmin">usuarios</Nav.Link>
+                    <Nav.Link href="">Cerrar Sesion</Nav.Link>
                 </Nav>
             </Navbar>
         </div>
     )
 }
 
-export default NavbarMenu
+export default MenuAdmin

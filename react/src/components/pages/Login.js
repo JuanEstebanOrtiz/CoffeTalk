@@ -3,6 +3,7 @@ import AutenticacionContext from '../../context/autenticacion/autenticacionConte
 import { Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import NavbarMenu from '../layout/NavbarMenu';
+import FooterPagina from '../layout/FooterPaginas';
 
 const Login = () => {
 
@@ -82,6 +83,7 @@ const Login = () => {
             </Form>
 
             {JSON.stringify(login)}
+            <FooterPagina />
         </div>
     )
 }

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import AutenticacionContext from '../../context/autenticacion/autenticacionContext';
 import { Form, Button } from 'react-bootstrap';
 import NavbarMenu from '../layout/NavbarMenu';
+import FooterPaginas from '../layout/FooterPaginas';
 
 const Registro = () => {
 
@@ -105,7 +106,9 @@ const Registro = () => {
             </Form>
 
             {JSON.stringify(registro)}
+            <FooterPaginas/>
         </div>
+        
     )
 }
 
