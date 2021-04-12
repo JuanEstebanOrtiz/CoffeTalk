@@ -32,8 +32,8 @@ exports.EliminarProducto = async (req,res) => {
 exports.ModificarProducto = async (req,res) => {
     try {
         const { id } = req.params;
-        const { nombre, precio, descripcion } = req.body;
-        await database.query("UPDATE productos SET nombre = ?, precio = ?, descripcion = ? WHERE idproductos = ?", [nombre, precio, descripcion, id]);
+        const { imagen, nombre, precio, descripcion } = req.body;
+        await database.query("UPDATE productos SET imagen = ?, nombre = ?, precio = ?, descripcion = ? WHERE idproductos = ?", [imagen, nombre, precio, descripcion, id]);
         res.status(200).json({ msg: "Producto modificado" });
     } catch (err) {
         res.status(401).json({ err: err });
@@ -42,8 +42,8 @@ exports.ModificarProducto = async (req,res) => {
 
 exports.AgregarProducto = async (req,res) => {
     try {
-        const { nombre, precio, descripcion } = req.body;
-        await database.query("INSERT INTO productos(nombre, precio, descripcion) VALUES (?,?,?)", [nombre, precio, descripcion, ]);
+        const { imagen, nombre, precio, descripcion } = req.body;
+        await database.query("INSERT INTO productos(imagen, nombre, precio, descripcion) VALUES (?,?,?,?)", [imagen, nombre, precio, descripcion, ]);
         res.status(200).json({ msg: "Producto agregado" });
     } catch (err) {
         res.status(401).json({ err: err });

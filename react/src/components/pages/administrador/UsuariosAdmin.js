@@ -4,7 +4,7 @@ import FooterPaginas from '../../../components/layout/FooterPaginas';
 import MaterialTable from 'material-table';
 import ClienteAxios from '../../../config/servidor';
 import {
-    Form, Button, Modal
+    Form, Button, Modal, Row, Col
 } from 'react-bootstrap'
 
 const UsuariosAdmin = () => {
@@ -12,7 +12,7 @@ const UsuariosAdmin = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [showModalAgregar, setShowModalAgregar] = useState(false);
 
-    const [ AgregarUsuarios, setAgregarUsuarios ] = useState({
+    const [AgregarUsuarios, setAgregarUsuarios] = useState({
         nombre: '',
         cell: '',
         direccion: '',
@@ -21,10 +21,10 @@ const UsuariosAdmin = () => {
         idroles: 1
     });
 
-    const [ showModalEditar, setShowModalEditar] = useState(false);
+    const [showModalEditar, setShowModalEditar] = useState(false);
 
-    const [ EditarUsuarios, setEditarUsuarios ] = useState({
-        id:'',
+    const [EditarUsuarios, setEditarUsuarios] = useState({
+        idusuario: '',
         nombre: '',
         cell: '',
         direccion: '',
@@ -39,7 +39,7 @@ const UsuariosAdmin = () => {
     const onChangeAgregar = (e) => {
         setAgregarUsuarios({
             ...AgregarUsuarios,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -49,7 +49,7 @@ const UsuariosAdmin = () => {
     const onChangeEditar = (e) => {
         setEditarUsuarios({
             ...EditarUsuarios,
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -59,7 +59,7 @@ const UsuariosAdmin = () => {
         console.log(usuarios)
     }
 
-    const onSubmitAgregar = async(event) => {
+    const onSubmitAgregar = async (event) => {
         event.preventDefault();
 
         const { nombre, cell, direccion, email, password, idroles } = AgregarUsuarios
@@ -70,8 +70,8 @@ const UsuariosAdmin = () => {
             direccion == '' ||
             email == '' ||
             password == ''
-            ) {
-                console.log('Todos los campos son obligatorios')
+        ) {
+            console.log('Todos los campos son obligatorios')
         } else {
 
             const datos = { nombre, cell, direccion, email, password, idroles }
@@ -147,10 +147,10 @@ const UsuariosAdmin = () => {
         </Form>
     );
 
-    const onSubmitEditar = async(event) => {
+    const onSubmitEditar = async (event) => {
         event.preventDefault();
 
-        const { id, nombre, cell, direccion, email, password, idroles } = EditarUsuarios
+        const { idusuario, nombre, cell, direccion, email, password, idroles } = EditarUsuarios
 
         if (
             nombre == '' ||
@@ -158,12 +158,12 @@ const UsuariosAdmin = () => {
             direccion == '' ||
             email == '' ||
             password == ''
-            ) {
-                console.log('Todos los campos son obligatorios')
+        ) {
+            console.log('Todos los campos son obligatorios')
         } else {
 
             const datos = { nombre, cell, direccion, email, password, idroles }
-            await ClienteAxios.put(`/usuarios/${id}`, datos)
+            await ClienteAxios.put(`/usuarios/${idusuario}`, datos)
 
         }
     }
@@ -174,10 +174,10 @@ const UsuariosAdmin = () => {
                 <Form.Label>Id</Form.Label>
                 <Form.Control
                     type="number"
-                    name="id"
+                    name="idusuario"
                     disabled
                     placeholder="Id"
-                    value={EditarUsuarios && EditarUsuarios.id}
+                    value={EditarUsuarios && EditarUsuarios.idusuario}
                     onChange={onChangeEditar}
                 />
             </Form.Group>
@@ -269,15 +269,19 @@ const UsuariosAdmin = () => {
         </Modal>
     );
 
-    useEffect(async () => {
+    const ListarUsuarios = async () => {
         const response = await ClienteAxios.get('/usuarios')
         setUsuarios(response.data.user)
+    }
+
+    useEffect(() => {
+        ListarUsuarios()
     }, [])
 
     const columnas = [
         {
             title: 'Id',
-            field: 'id'
+            field: 'idusuario'
         },
         {
             title: 'Nombre',
@@ -309,10 +313,19 @@ const UsuariosAdmin = () => {
         <div>
             <MenuAdmin />
             <h1>usuarios de Admin</h1>
+            <Row>
+                <Col>
+                    <Button variant="primary" onClick={handleShowAgregarModal}>
+                        Agregar Nuevo Usuario
+                    </Button>
+                </Col>
+                <Col>
+                    <Button variant="secondary" onClick={ListarUsuarios}>
+                        Refrescar
+                    </Button>
+                </Col>
+            </Row>
 
-            <Button variant="primary" onClick={handleShowAgregarModal}>
-                Agregar Nuevo Usuario
-            </Button>
             {modalAgregar}
             {modalEditar}
 
@@ -332,7 +345,7 @@ const UsuariosAdmin = () => {
                         icon: 'delete',
                         tooltip: 'Eliminar usuario',
                         onClick: async (e, rowData) => {
-                            await ClienteAxios.delete(`/usuarios/${rowData.id}`);
+                            await ClienteAxios.delete(`/usuarios/${rowData.idusuario}`);
                         }
                     }
                 ]}
@@ -345,7 +358,6 @@ const UsuariosAdmin = () => {
                     }
                 }}
             />
-            {JSON.stringify(EditarUsuarios)}
 
             <FooterPaginas />
         </div>

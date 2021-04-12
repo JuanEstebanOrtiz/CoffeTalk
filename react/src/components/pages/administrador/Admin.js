@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import MenuAdmin from './LayoutAdmin/MenuAdmin';
+import FooterPaginas from '../../../components/layout/FooterPaginas';
 import { Carousel } from 'react-bootstrap';
 
 const Admin = () => {
@@ -46,6 +47,7 @@ const Admin = () => {
                 </Carousel.Item>
             </Carousel>
 
+            <FooterPaginas/>
         </div>
     )
 }

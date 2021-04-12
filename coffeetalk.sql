@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2021 a las 02:53:11
+-- Tiempo de generación: 12-04-2021 a las 02:22:14
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.2
 
@@ -29,23 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cesta` (
   `idcesta` int(11) NOT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `precio` int(100) DEFAULT NULL,
   `cantidad` int(100) DEFAULT NULL,
   `total` int(100) DEFAULT NULL,
-  `cliente` varchar(30) DEFAULT NULL,
-  `cell` varchar(10) DEFAULT NULL,
-  `direccion` varchar(50) DEFAULT NULL
+  `idproductos` int(11) DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `cesta`
 --
 
-INSERT INTO `cesta` (`idcesta`, `nombre`, `descripcion`, `precio`, `cantidad`, `total`, `cliente`, `cell`, `direccion`) VALUES
-(1, 'cafe1', 'rico café caliente', 15000, 2, 30000, 'Juan Esteban Ortiz Valenzuela', '3165074526', 'call 71 #25-41'),
-(2, 'cafe2', 'rico café caliente', 30000, 2, 60000, 'Juan Esteban Ortiz Valenzuela', '3165074526', 'call 71 #25-41');
+INSERT INTO `cesta` (`idcesta`, `cantidad`, `total`, `idproductos`, `idusuario`) VALUES
+(2, 2, 60000, NULL, NULL),
+(5, 2, 70000, 8, 7),
+(6, 2, 30000, NULL, NULL),
+(7, 2, 60000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,17 +148,20 @@ INSERT INTO `producto` (`id_productos`, `nombre_producto`, `precio`) VALUES
 
 CREATE TABLE `productos` (
   `idproductos` int(11) NOT NULL,
+  `imagen` varchar(250) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `precio` int(100) DEFAULT NULL,
-  `descripcion` varchar(150) DEFAULT NULL
+  `precio` int(250) DEFAULT NULL,
+  `descripcion` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`idproductos`, `nombre`, `precio`, `descripcion`) VALUES
-(2, 'cafe 1', 15000, 'cafe 1');
+INSERT INTO `productos` (`idproductos`, `imagen`, `nombre`, `precio`, `descripcion`) VALUES
+(6, 'imagen1', 'cafe1', 15000, 'rico cafe 1 caliente'),
+(7, 'imagen2', 'cafe2', 30000, 'rico cafe 2 caliente'),
+(8, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg', 'cafe3', 35000, 'cafe 3 caliente');
 
 -- --------------------------------------------------------
 
@@ -206,7 +207,7 @@ INSERT INTO `terminos_condiciones` (`idterminos_condiciones`, `politicas`) VALUE
 --
 
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
+  `idusuario` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `cell` varchar(10) DEFAULT NULL,
   `direccion` varchar(50) DEFAULT NULL,
@@ -219,7 +220,7 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `cell`, `direccion`, `email`, `password`, `idroles`) VALUES
+INSERT INTO `usuario` (`idusuario`, `nombre`, `cell`, `direccion`, `email`, `password`, `idroles`) VALUES
 (7, 'Juan Esteban Ortiz Valenzuela', '3162074526', 'Calle 71#25-41 Terraza Algarrobo', 'juanesor@hotmail.com', '123456789', 2),
 (8, 'Juan Ortiz', '3165074526', 'call 71 #25-41', 'juanesor1@hotmail.com', '12345678', 1),
 (10, 'Felipe Nuñez', '3162074526', 'CL 55 A # 2 AW - 45', 'felipe@hotmail.com', '123456789', 2),
@@ -327,7 +328,7 @@ ALTER TABLE `terminos_condiciones`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idusuario`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -349,7 +350,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `cesta`
 --
 ALTER TABLE `cesta`
-  MODIFY `idcesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idcesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `comentario`
@@ -385,7 +386,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idproductos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idproductos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -403,7 +404,7 @@ ALTER TABLE `terminos_condiciones`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

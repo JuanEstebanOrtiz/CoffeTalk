@@ -7,6 +7,8 @@ import User from './components/pages/usuarios/User';
 
 import Admin from './components/pages/administrador/Admin';
 import UsuariosAdmin from './components/pages/administrador/UsuariosAdmin';
+import ProductosAdmin from './components/pages/administrador/ProductosAdmin';
+import CestasAdmin from './components/pages/administrador/CestasAdmin';
 
 import AutenticacionState from './context/autenticacion/autenticacionState';
 
@@ -26,6 +28,8 @@ const App = () => {
 
             <Route exact path='/admin' component={Admin} />
             <Route exact path='/usuariosAdmin' component={UsuariosAdmin} />
+            <Route exact path='/productosAdmin' component={ProductosAdmin} />
+            <Route exact path='/cestasAdmin' component={CestasAdmin} />
           </Switch>
         </Router>
       </AdminState>

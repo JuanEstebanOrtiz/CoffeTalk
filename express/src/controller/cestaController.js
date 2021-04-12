@@ -2,7 +2,7 @@ const database = require('../database');
 
 exports.ListarCestas = async (req,res) => {
     try {
-        const cestas = await database.query("SELECT * FROM cesta");
+        const cestas = await database.query("select c.idcesta, c.cantidad, c.total, p.nombre as nombre_producto, u.nombre as nombre_usuario from cesta c, productos p, usuario u where c.idproductos = p.idproductos and c.idusuario = u.idusuario");
         res.status(200).json({ cestas });
     } catch (err) {
         res.status(401).json({ err: err });
@@ -32,19 +32,9 @@ exports.EliminarCesta = async (req,res) => {
 exports.ModificarCesta = async (req,res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, precio, cantidad, total, cliente, cell, direccion } = req.body;
-        await database.query("UPDATE cesta SET nombre = ?, descripcion = ?, precio = ?, cantidad = ?, total = ?, cliente = ?, cell = ?, direccion = ? WHERE idcesta = ?", [nombre, descripcion, precio, cantidad, total, cliente, cell, direccion, id]);
+        const { cantidad, total } = req.body;
+        await database.query("UPDATE cesta SET cantidad = ?, total = ? WHERE idcesta = ?", [cantidad, total, id]);
         res.status(200).json({ msg: "Cesta modificado" });
-    } catch (err) {
-        res.status(401).json({ err: err });
-    }
-}
-
-exports.AgregarCesta = async (req,res) => {
-    try {
-        const { nombre, descripcion, precio, cantidad, total, cliente, cell, direccion } = req.body;
-        await database.query("INSERT INTO cesta(nombre, descripcion, precio, cantidad, total, cliente, cell, direccion) VALUES (?,?,?,?,?,?,?,?)", [nombre, descripcion, precio, cantidad, total, cliente, cell, direccion]);
-        res.status(200).json({ msg: "Cesta agregado" });
     } catch (err) {
         res.status(401).json({ err: err });
     }

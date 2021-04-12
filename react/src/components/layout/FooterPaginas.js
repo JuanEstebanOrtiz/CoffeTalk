@@ -13,15 +13,15 @@ const FooterPaginas = () => {
 
                     <section class="mb-4">
 
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button">
                             <img src={ImgFacebook}/>
                         </a>
 
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://mail.google.com/" role="button">
                             <img src={ImgGmail}/>
                         </a>
 
-                        <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/JuanEstebanOrtiz/CoffeTalk" role="button">
                             <img src={ImgGithub}/>
                         </a>
                     </section>

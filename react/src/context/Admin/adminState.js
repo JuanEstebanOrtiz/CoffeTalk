@@ -6,14 +6,18 @@ import {
     LISTAR_USUARIOS, 
     AGREGAR_USUARIOS, 
     EDITAR_USUARIOS, 
-    ELIMINAR_USUARIOS
+    ELIMINAR_USUARIOS,
+    LISTAR_PRODUCTOS,
+    LISTAR_CESTA
 } from '../../types';
 
 const AdminState = (props) => {
     
     const initalizeState = {
 
-        usuarios: null
+        usuarios: null,
+        productos: null,
+        cesta: null,
 
     }
 
@@ -64,6 +68,32 @@ const AdminState = (props) => {
         }
     }
 
+
+    const ListarProductos = async () => {
+        try {
+            const productos = await clienteAxios.get('/productos')
+            dispatch ({
+                type: LISTAR_PRODUCTOS,
+                payload:  productos.data.productos
+            })
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+
+
+    const ListarCestas = async () => {
+        try {
+            const cesta = await clienteAxios.get('/cestas')
+            dispatch ({
+                type: LISTAR_CESTA,
+                payload:  cesta.data.cestas
+            })
+        } catch (e) {
+            console.log(e.response)
+        }
+    }
+
     return (
         <AdminContext.Provider
             value = {{
@@ -71,7 +101,9 @@ const AdminState = (props) => {
                 ListarUsuarios,
                 AgregarUsuarios,
                 EditarUsuarios,
-                EliminarUsuarios
+                EliminarUsuarios,
+                ListarProductos,
+                ListarCestas
             }}
         >
             {props.children}
