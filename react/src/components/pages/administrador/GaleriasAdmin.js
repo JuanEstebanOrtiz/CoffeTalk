@@ -71,7 +71,7 @@ const GaleriasAdmin = () => {
             <Form.Group>
                 <Form.Label>Imagen</Form.Label>
                 <Form.Control
-                    type="file"
+                    type="text"
                     name="imagen"
                     placeholder="Imagen"
                     onChange={onChangeAgregar}

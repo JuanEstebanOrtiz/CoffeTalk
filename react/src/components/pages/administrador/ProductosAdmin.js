@@ -80,7 +80,7 @@ const ProductosAdmin = () => {
             <Form.Group>
                 <Form.Label>Imagen</Form.Label>
                 <Form.Control
-                    type="file"
+                    type="text"
                     name="imagen"
                     placeholder="imagen"
                     onChange={onChangeAgregar}
