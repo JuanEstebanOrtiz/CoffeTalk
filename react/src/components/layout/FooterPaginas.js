@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ClienteAxios from '../../config/servidor';
 import ImgFacebook from '../../imagenes/facebook.png';
 import ImgGithub from '../../imagenes/github.png';
 import ImgGmail from '../../imagenes/gmail.png';
 
 const FooterPaginas = () => {
+
+    const [terminoscondiciones, setTerminosCondiciones] = useState([]);
+
+    const ListarTerminosCondiciones = async () => {
+        const response = await ClienteAxios.get('/terminos_condiciones')
+        setTerminosCondiciones(response.data.terminos_condiciones)
+    }
+
+    useEffect(() => {
+        ListarTerminosCondiciones()
+    }, [])
+
     return (
         <div>
 
@@ -25,14 +38,15 @@ const FooterPaginas = () => {
                             <img src={ImgGithub}/>
                         </a>
                     </section>
-
-
+                    
                     <section class="mb-4">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
-                            repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
-                            eum harum corrupti dicta, aliquam sequi voluptate quas.
-                        </p>
+                        {terminoscondiciones ?
+                            terminoscondiciones.map(terminoscondicione => {
+                                return(
+                                    <p>{terminoscondicione.politicas}</p>
+                                )
+                            })
+                        :null}
                     </section>
 
                     <section class="">

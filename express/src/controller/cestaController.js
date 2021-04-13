@@ -28,14 +28,3 @@ exports.EliminarCesta = async (req,res) => {
         res.status(401).json({ err: err });
     }
 }
-
-exports.ModificarCesta = async (req,res) => {
-    try {
-        const { id } = req.params;
-        const { cantidad, total } = req.body;
-        await database.query("UPDATE cesta SET cantidad = ?, total = ? WHERE idcesta = ?", [cantidad, total, id]);
-        res.status(200).json({ msg: "Cesta modificado" });
-    } catch (err) {
-        res.status(401).json({ err: err });
-    }
-}

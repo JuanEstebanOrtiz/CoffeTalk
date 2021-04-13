@@ -1,4 +1,4 @@
-import { LOGIN_EXITOSO } from '../../types';
+import { LOGIN_EXITOSO, CERRAR_SESION } from '../../types';
 
 export default(state, action) => {
     
@@ -13,6 +13,14 @@ export default(state, action) => {
                 autenticado: true,
                 usuario: action.payload,
                 rol: action.payload.idroles
+            }
+
+        case CERRAR_SESION:
+            return {
+                ...state,
+                usuario: null,
+                rol: null,
+                autenticado: false
             }
     }
 

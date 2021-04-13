@@ -7,25 +7,23 @@ import {
     Form, Button, Modal, Row, Col
 } from 'react-bootstrap'
 
-const ProductosAdmin = () => {
+const ContactarnosAdmin = () => {
 
-    const [productos, setProductos] = useState([]);
+    const [contactarnos, setContactarnos] = useState([]);
     const [showModalAgregar, setShowModalAgregar] = useState(false);
 
-    const [AgregarProductos, setAgregarProductos] = useState({
-        imagen: '', 
-        nombre: '', 
-        precio: '', 
-        descripcion: '',
+    const [AgregarContactarnos, setAgregarContactarnos] = useState({
+        nombre: '',
+        email: '',
+        descripcion: ''
     });
 
     const [showModalEditar, setShowModalEditar] = useState(false);
 
-    const [EditarProductos, setEditarProductos] = useState({
-        idproductos: '',
-        imagen: '', 
-        nombre: '', 
-        precio: '', 
+    const [EditarContactarnos, setEditarContactarnos] = useState({
+        idcontactarnos: '',
+        nombre: '',
+        email: '',
         descripcion: '',
     })
 
@@ -33,8 +31,8 @@ const ProductosAdmin = () => {
     const handleShowAgregarModal = () => setShowModalAgregar(true);
 
     const onChangeAgregar = (e) => {
-        setAgregarProductos({
-            ...AgregarProductos,
+        setAgregarContactarnos({
+            ...AgregarContactarnos,
             [e.target.name]: e.target.value
         })
     }
@@ -43,50 +41,39 @@ const ProductosAdmin = () => {
     const handleShowEditarModal = () => setShowModalEditar(true);
 
     const onChangeEditar = (e) => {
-        setEditarProductos({
-            ...EditarProductos,
+        setEditarContactarnos({
+            ...EditarContactarnos,
             [e.target.name]: e.target.value
         })
     }
 
-    const ProductosSeleccionado = (productos) => {
+    const ContactarnosSeleccionado = (contactarnos) => {
         handleShowEditarModal();
-        setEditarProductos(productos)
-        console.log(productos)
+        setEditarContactarnos(contactarnos)
+        console.log(contactarnos)
     }
 
     const onSubmitAgregar = async (event) => {
         event.preventDefault();
 
-        const { imagen, nombre, precio, descripcion } = AgregarProductos
+        const { nombre, email, descripcion } = AgregarContactarnos
 
         if (
-            imagen == '' ||
             nombre == '' ||
-            precio == '' ||
+            email == '' ||
             descripcion == ''
         ) {
             console.log('Todos los campos son obligatorios')
         } else {
 
-            const datos = { imagen, nombre, precio, descripcion }
-            await ClienteAxios.post(`/productos`, datos)
+            const datos = { nombre, email, descripcion }
+            await ClienteAxios.post(`/contactarnos`, datos)
 
         }
     }
 
     const FormularioAgregar = (
         <Form onSubmit={onSubmitAgregar}>
-            <Form.Group>
-                <Form.Label>Imagen</Form.Label>
-                <Form.Control
-                    type="file"
-                    name="imagen"
-                    placeholder="imagen"
-                    onChange={onChangeAgregar}
-                />
-            </Form.Group>
-
             <Form.Group>
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
@@ -98,11 +85,11 @@ const ProductosAdmin = () => {
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Precio</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                    type="number"
-                    name="precio"
-                    placeholder="precio"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
                     onChange={onChangeAgregar}
                 />
             </Form.Group>
@@ -112,13 +99,13 @@ const ProductosAdmin = () => {
                 <Form.Control
                     type="text"
                     name="descripcion"
-                    placeholder="descripcion"
+                    placeholder="Descripcion"
                     onChange={onChangeAgregar}
                 />
             </Form.Group>
 
             <Button variant="primary" type="submit">
-                Agregar Producto
+                Registrar
             </Button>
         </Form>
     );
@@ -126,19 +113,18 @@ const ProductosAdmin = () => {
     const onSubmitEditar = async (event) => {
         event.preventDefault();
 
-        const { idproductos, imagen, nombre, precio, descripcion } = EditarProductos
+        const { idcontactarnos, nombre, email, descripcion } = EditarContactarnos
 
         if (
-            imagen == '' ||
             nombre == '' ||
-            precio == '' ||
+            email == '' ||
             descripcion == ''
         ) {
             console.log('Todos los campos son obligatorios')
         } else {
 
-            const datos = { imagen, nombre, precio, descripcion }
-            await ClienteAxios.put(`/productos/${idproductos}`, datos)
+            const datos = { nombre, email, descripcion }
+            await ClienteAxios.put(`/contactarnos/${idcontactarnos}`, datos)
 
         }
     }
@@ -146,24 +132,13 @@ const ProductosAdmin = () => {
     const FormularioEditar = (
         <Form onSubmit={onSubmitEditar}>
             <Form.Group>
-                <Form.Label>Id</Form.Label>
+                <Form.Label>Id Contactarnos</Form.Label>
                 <Form.Control
                     type="number"
-                    name="idproductos"
+                    name="idcontactarnos"
                     disabled
                     placeholder="Id"
-                    value={EditarProductos && EditarProductos.idproductos}
-                    onChange={onChangeEditar}
-                />
-            </Form.Group>
-
-            <Form.Group>
-                <Form.Label>Imagen</Form.Label>
-                <Form.Control
-                    type="text"
-                    name="imagen"
-                    placeholder="imagen"
-                    value={EditarProductos && EditarProductos.imagen}
+                    value={EditarContactarnos && EditarContactarnos.idcontactarnos}
                     onChange={onChangeEditar}
                 />
             </Form.Group>
@@ -174,35 +149,35 @@ const ProductosAdmin = () => {
                     type="text"
                     name="nombre"
                     placeholder="Nombre"
-                    value={EditarProductos && EditarProductos.nombre}
+                    value={EditarContactarnos && EditarContactarnos.nombre}
                     onChange={onChangeEditar}
                 />
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Precio</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                    type="number"
-                    name="precio"
-                    placeholder="Precio"
-                    value={EditarProductos && EditarProductos.precio}
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={EditarContactarnos && EditarContactarnos.email}
                     onChange={onChangeEditar}
                 />
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Direccion</Form.Label>
+                <Form.Label>Descripcion</Form.Label>
                 <Form.Control
                     type="text"
                     name="descripcion"
                     placeholder="Descripcion"
-                    value={EditarProductos && EditarProductos.descripcion}
+                    value={EditarContactarnos && EditarContactarnos.descripcion}
                     onChange={onChangeEditar}
                 />
             </Form.Group>
 
             <Button variant="primary" type="submit">
-                Editar Producto
+                Editar Contactarnos
             </Button>
         </Form>
     );
@@ -210,7 +185,7 @@ const ProductosAdmin = () => {
     const modalAgregar = (
         <Modal show={showModalAgregar} onHide={handleCloseAgregarModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Agregar Producto</Modal.Title>
+                <Modal.Title>Agregar Contactarnos</Modal.Title>
             </Modal.Header>
             <Modal.Body>{FormularioAgregar}</Modal.Body>
         </Modal>
@@ -219,37 +194,33 @@ const ProductosAdmin = () => {
     const modalEditar = (
         <Modal show={showModalEditar} onHide={handleCloseEditarModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Editar Productos</Modal.Title>
+                <Modal.Title>Editar Contactarnos</Modal.Title>
             </Modal.Header>
             <Modal.Body>{FormularioEditar}</Modal.Body>
         </Modal>
     );
 
-    const ListarProductos = async () => {
-        const response = await ClienteAxios.get('/productos')
-        setProductos(response.data.productos)
+    const ListarContactarnos = async () => {
+        const response = await ClienteAxios.get('/contactarnos')
+        setContactarnos(response.data.contactarnos)
     }
 
     useEffect(() => {
-        ListarProductos()
+        ListarContactarnos()
     }, [])
 
     const columnas = [
         {
-            title: 'Id',
-            field: 'idproductos'
-        },
-        {
-            title: 'Imagen',
-            field: 'imagen' 
+            title: 'Id Contactarnos',
+            field: 'idcontactarnos'
         },
         {
             title: 'Nombre',
             field: 'nombre'
         },
         {
-            title: 'Precio',
-            field: 'precio'
+            title: 'Email',
+            field: 'email'
         },
         {
             title: 'Descripcion',
@@ -260,40 +231,40 @@ const ProductosAdmin = () => {
     return (
         <div>
             <MenuAdmin />
-            <h1>Productos de Admin</h1>
-
+            <h1>Contactarnos de Admin</h1>
             <Row>
                 <Col>
                     <Button variant="primary" onClick={handleShowAgregarModal}>
-                        Agregar Nuevo Producto
+                        Agregar 
                     </Button>
                 </Col>
                 <Col>
-                    <Button variant="secondary" onClick={ListarProductos}>
+                    <Button variant="secondary" onClick={ListarContactarnos}>
                         Refrescar
                     </Button>
                 </Col>
             </Row>
+
             {modalAgregar}
             {modalEditar}
 
             <MaterialTable
                 columns={columnas}
-                data={productos}
-                title="Productos"
+                data={contactarnos}
+                title="Contactarnos"
                 actions={[
                     {
                         icon: 'edit',
-                        tooltip: 'Editar Producto',
+                        tooltip: 'Editar',
                         onClick: (e, rowData) => {
-                            ProductosSeleccionado(rowData);
+                            ContactarnosSeleccionado(rowData);
                         }
                     },
                     {
                         icon: 'delete',
-                        tooltip: 'Eliminar Producto',
+                        tooltip: 'Eliminar',
                         onClick: async (e, rowData) => {
-                            await ClienteAxios.delete(`/productos/${rowData.idproductos}`);
+                            await ClienteAxios.delete(`/contactarnos/${rowData.idcontactarnos}`);
                         }
                     }
                 ]}
@@ -312,4 +283,4 @@ const ProductosAdmin = () => {
     )
 }
 
-export default ProductosAdmin
+export default ContactarnosAdmin

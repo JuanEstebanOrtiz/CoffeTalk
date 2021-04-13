@@ -49,6 +49,7 @@ const Registro = () => {
     return (
         <div>
             <NavbarMenu />
+            <h1>Registro</h1>
             <Form onSubmit={onSubmit}>
                 <Form.Group>
                     <Form.Label>Nombre</Form.Label>

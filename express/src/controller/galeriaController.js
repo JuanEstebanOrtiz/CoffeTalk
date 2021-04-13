@@ -32,8 +32,8 @@ exports.EliminarGaleria = async (req,res) => {
 exports.ModificarGaleria = async (req,res) => {
     try {
         const { id } = req.params;
-        const { producto, imagen } = req.body;
-        await database.query("UPDATE galeria SET producto = ?, imagen = ? WHERE idgaleria = ?", [producto, imagen, id]);
+        const { imagen } = req.body;
+        await database.query("UPDATE galeria SET imagen = ? WHERE idgaleria = ?", [imagen, id]);
         res.status(200).json({ msg: "Galeria modificado" });
     } catch (err) {
         res.status(401).json({ err: err });
@@ -42,8 +42,8 @@ exports.ModificarGaleria = async (req,res) => {
 
 exports.AgregarGaleria = async (req,res) => {
     try {
-        const { producto, imagen } = req.body;
-        await database.query("INSERT INTO galeria(producto, imagen) VALUES (?,?)", [producto, imagen]);
+        const { imagen } = req.body;
+        await database.query("INSERT INTO galeria( imagen) VALUES (?)", [imagen]);
         res.status(200).json({ msg: "Galeria agregado" });
     } catch (err) {
         res.status(401).json({ err: err });

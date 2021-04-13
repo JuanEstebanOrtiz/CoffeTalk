@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2021 a las 02:22:14
+-- Tiempo de generación: 13-04-2021 a las 06:12:47
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.2
 
@@ -53,16 +53,18 @@ INSERT INTO `cesta` (`idcesta`, `cantidad`, `total`, `idproductos`, `idusuario`)
 
 CREATE TABLE `comentario` (
   `idcomentario` int(11) NOT NULL,
-  `nombre` varchar(30) DEFAULT NULL,
-  `comentario` varchar(100) DEFAULT NULL
+  `comentario` varchar(100) DEFAULT NULL,
+  `idproductos` int(11) DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `comentario`
 --
 
-INSERT INTO `comentario` (`idcomentario`, `nombre`, `comentario`) VALUES
-(1, 'Juan Esteban Ortiz', 'el producto café 1 esta muy rico');
+INSERT INTO `comentario` (`idcomentario`, `comentario`, `idproductos`, `idusuario`) VALUES
+(1, 'el producto café 1 esta muy rico', 8, 7),
+(4, 'el producto cafe 3 esta frio', 8, 23);
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,6 @@ INSERT INTO `contactarnos` (`idcontactarnos`, `nombre`, `email`, `descripcion`) 
 
 CREATE TABLE `galeria` (
   `idgaleria` int(11) NOT NULL,
-  `producto` varchar(30) DEFAULT NULL,
   `imagen` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -100,8 +101,10 @@ CREATE TABLE `galeria` (
 -- Volcado de datos para la tabla `galeria`
 --
 
-INSERT INTO `galeria` (`idgaleria`, `producto`, `imagen`) VALUES
-(1, 'cafe1', 'imagen1');
+INSERT INTO `galeria` (`idgaleria`, `imagen`) VALUES
+(1, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg'),
+(8, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg'),
+(9, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg');
 
 -- --------------------------------------------------------
 
@@ -161,7 +164,10 @@ CREATE TABLE `productos` (
 INSERT INTO `productos` (`idproductos`, `imagen`, `nombre`, `precio`, `descripcion`) VALUES
 (6, 'imagen1', 'cafe1', 15000, 'rico cafe 1 caliente'),
 (7, 'imagen2', 'cafe2', 30000, 'rico cafe 2 caliente'),
-(8, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg', 'cafe3', 35000, 'cafe 3 caliente');
+(8, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg', 'cafe3', 35000, 'cafe 3 caliente'),
+(9, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg', 'cafe4', 30000, 'seguir avanzando el segundo corte2'),
+(10, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg', 'cafe5', 15000, 'seguir avanzando el segundo corte'),
+(11, 'https://www.lavanguardia.com/files/image_948_465/uploads/2020/12/14/5fd7240cadcfe.jpeg', 'cafe6', 30000, 'cafe 2 caliente');
 
 -- --------------------------------------------------------
 
@@ -198,7 +204,9 @@ CREATE TABLE `terminos_condiciones` (
 --
 
 INSERT INTO `terminos_condiciones` (`idterminos_condiciones`, `politicas`) VALUES
-(1, 'políticas de los términos y condiciones de la app');
+(1, 'políticas de los términos y condiciones de la app'),
+(5, NULL),
+(6, NULL);
 
 -- --------------------------------------------------------
 
@@ -356,19 +364,19 @@ ALTER TABLE `cesta`
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `idcomentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idcomentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `contactarnos`
 --
 ALTER TABLE `contactarnos`
-  MODIFY `idcontactarnos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idcontactarnos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `galeria`
 --
 ALTER TABLE `galeria`
-  MODIFY `idgaleria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idgaleria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
@@ -386,7 +394,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idproductos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idproductos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -398,7 +406,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `terminos_condiciones`
 --
 ALTER TABLE `terminos_condiciones`
-  MODIFY `idterminos_condiciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idterminos_condiciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

@@ -55,6 +55,7 @@ const Login = () => {
     return (
         <div>
             <NavbarMenu />
+            <h1>Login</h1>
             <Form onSubmit={onSubmit}>
         
                 <Form.Group>

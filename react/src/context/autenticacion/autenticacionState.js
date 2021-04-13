@@ -2,7 +2,10 @@ import React, { useReducer } from 'react';
 import AutenticacionContext from './autenticacionContext';
 import AutenticacionReducer from './autenticacionReducer';
 import clienteAxios from '../../config/servidor';
-import { LOGIN_EXITOSO, REGISTRO_EXITOSO } from '../../types';
+import { 
+    LOGIN_EXITOSO, 
+    REGISTRO_EXITOSO, 
+    CERRAR_SESION } from '../../types';
 
 const AutenticacionState = (props) => {
 
@@ -37,12 +40,23 @@ const AutenticacionState = (props) => {
         }
     }
 
+    const CerrarSesion = () => {
+        try {
+            dispatch({
+                type: CERRAR_SESION
+            })
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
     return (
         <AutenticacionContext.Provider value={{ autenticado: state.autenticado, 
                                                 usuario: state.usuario, 
                                                 rol: state.rol, 
                                                 RegistroUsuario, 
-                                                LoginUsuario }}>
+                                                LoginUsuario,
+                                                CerrarSesion }}>
             {props.children}
         </AutenticacionContext.Provider>
     )

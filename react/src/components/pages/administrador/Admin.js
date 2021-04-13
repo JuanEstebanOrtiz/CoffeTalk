@@ -1,53 +1,80 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuAdmin from './LayoutAdmin/MenuAdmin';
 import FooterPaginas from '../../../components/layout/FooterPaginas';
-import { Carousel } from 'react-bootstrap';
+import ClienteAxios from '../../../config/servidor';
+import { Carousel, CardDeck, Card, Row, Col } from 'react-bootstrap';
 
 const Admin = () => {
 
+    const [galerias, setGalerias] = useState([]);
+
+    const ListarGalerias = async () => {
+        const response = await ClienteAxios.get('/galerias')
+        setGalerias(response.data.galerias)
+    }
+
+
+    const [productos, setProductos] = useState([]);
+
+    const ListarProductos = async () => {
+        const response = await ClienteAxios.get('/productos')
+        setProductos(response.data.productos)
+    }
+
+    useEffect(() => {
+        ListarProductos()
+        ListarGalerias()
+    }, [])
+
     return (
         <div>
-            <MenuAdmin/>
-            <h1>Hola Admin</h1>
+            <MenuAdmin />
+
             <Carousel>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="https://dam.ngenespanol.com/wp-content/uploads/2019/10/datos-sobre-el-cafe.jpg"
-                        alt="First slide"
-                    />
-                    <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="https://dam.ngenespanol.com/wp-content/uploads/2019/10/datos-sobre-el-cafe.jpg"
-                        alt="Second slide"
-                    />
-
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="https://dam.ngenespanol.com/wp-content/uploads/2019/10/datos-sobre-el-cafe.jpg"
-                        alt="Third slide"
-                    />
-
-                    <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
+                {galerias ?
+                    galerias.map(galeria => {
+                        return (
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100"
+                                    src={galeria.imagen}
+                                    alt="First slide"
+                                />
+                            </Carousel.Item>
+                        )
+                    })
+                    :null}
             </Carousel>
 
-            <FooterPaginas/>
+            <h1>espacio</h1>
+
+            <CardDeck>
+                <Row>
+
+
+                    {productos ?
+                        productos.map(producto => {
+                            return (
+                                <Col md={4}>
+                                    <Card>
+                                        <Card.Img variant="top" src={producto.imagen} />
+                                        <Card.Body>
+                                            <Card.Title>{producto.nombre}</Card.Title>
+                                            <Card.Text>{producto.descripcion}
+                                            </Card.Text>
+                                        </Card.Body>
+                                        <Card.Footer>
+                                            {producto.precio}
+                                        </Card.Footer>
+                                    </Card>
+                                </Col>
+                            )
+                        })
+                        : null}
+                </Row>
+            </CardDeck>
+
+            <FooterPaginas />
         </div>
     )
 }
